@@ -89,7 +89,7 @@ io.on('connection', (socket) => {
   socket.on('updateTask', ({ taskId, updatedTask }) => {
     console.log(`Updating Task ${taskId}`);
 
-    // TODO: Update the task in your DB here if needed
+   
 
     // Unlock the task after update
     lockedTasks[taskId] = { locked: false, lockedBy: null };

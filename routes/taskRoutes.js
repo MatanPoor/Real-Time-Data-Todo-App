@@ -93,7 +93,7 @@ router.post('/tasks', async (req, res) => {
 
     io.emit('taskCreated', task); // Emit task creation event
 
-    res.status(201).json(task); // Respond with th e created task
+    res.status(201).json(task); 
   } catch (error) {
     console.error('Error saving task:', error);
     res.status(500).json({ message: 'Server Error', error: error.message });

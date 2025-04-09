@@ -5,24 +5,24 @@ const taskSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true, // Title is required
+      required: true, 
     },
     description: {
       type: String,
-      required: true,  // Description is required
+      required: true,  
     },
     priority: {
       type: String,
       enum: ['Low', 'Medium', 'High'],
-      default: 'Low',  // Default to 'Low' if no value is provided
+      default: 'Low',  
     },
     dueDate: {
       type: Date,
-      default: null,  // Default to null if no date is provided
+      default: null, 
     },
     completed: {
       type: Boolean,
-      default: false,  // Default to false if no value is provided
+      default: false,  
     },
     isLocked: {
       type: Boolean,
