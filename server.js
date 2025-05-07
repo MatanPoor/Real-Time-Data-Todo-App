@@ -90,8 +90,6 @@ io.on('connection', (socket) => {
   socket.on('updateTask', ({ taskId, updatedTask }) => {
     console.log(`Updating Task ${taskId}`);
 
-   
-
     // Unlock the task after update
     lockedTasks[taskId] = { locked: false, lockedBy: null };
 
