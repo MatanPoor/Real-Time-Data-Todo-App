@@ -75,6 +75,7 @@ io.on('connection', (socket) => {
 
       io.emit('taskUnlocked', { taskId, unlockedBy: socketId });
     } else {
+      if(lockedTasks[taskId].locked == true)
       console.log(`Task ${taskId} could not be unlocked by ${socketId}`);
 
 
@@ -97,6 +98,26 @@ io.on('connection', (socket) => {
     // Emit unlock and update events
     io.emit('taskUnlocked', { taskId, unlockedBy: null });
     io.emit('taskUpdated', updatedTask);
+  });
+
+  //unloked tasks when diconnected.
+  socket.on('disconnect', () => {
+    console.log(`Client disconnected: ${socket.id}`);
+  
+    // Find and unlock all tasks locked by this socket
+    for (const taskId in lockedTasks) {
+      const lock = lockedTasks[taskId];
+  
+      if (lock.locked && lock.lockedBy === socket.id) {
+        // Unlock the task
+        lockedTasks[taskId] = { locked: false, lockedBy: null };
+  
+        console.log(`Task ${taskId} automatically unlocked due to disconnection of ${socket.id}`);
+  
+        // Notify all clients that task was unlocked
+        io.emit('taskUnlocked', { taskId, unlockedBy: socket.id });
+      }
+    }
   });
 });
 
